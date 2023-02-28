@@ -1,0 +1,18 @@
+{
+  "entrypoints": {
+    "docs": {
+      "js": [
+        "/src/build/runtime.70890875.js",
+        "/src/build/docs.45de9844.js"
+      ]
+    },
+    "tailwind": {
+      "js": [
+        "/src/build/runtime.70890875.js"
+      ],
+      "css": [
+        "/src/build/tailwind.c4f3801f.css"
+      ]
+    }
+  }
+}

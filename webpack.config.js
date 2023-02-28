@@ -8,11 +8,11 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('public/nvdoc/')
+    .setOutputPath('src/public/nvdoc/')
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    .setPublicPath('/src/build')
     // only needed for CDN's or subdirectory deploy
-    .setManifestKeyPrefix('build/')
+    .setManifestKeyPrefix('src/build/')
 
     /*
      * ENTRY CONFIG

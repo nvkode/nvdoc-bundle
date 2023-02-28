@@ -3,7 +3,7 @@
     "description": "Symfony Bundle for generating and displaying project documentation",
     "type": "symfony-bundle",
     "license": "MIT",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "autoload": {
         "psr-4": {
             "Nvkode\\NvdocBundle\\": "src/"
