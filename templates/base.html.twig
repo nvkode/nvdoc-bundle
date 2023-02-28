@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    {% block metas %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="robots" content="noindex, nofollow"/>
+    {% endblock %}
+
+    {% block styles %}
+{#        {{ encore_entry_link_tags('tailwind') }}#}
+    {% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="relative z-0 flex-1 overflow-y-auto focus:outline-none font-sans bg-gray-900 text-gray-50">
+{% block page %}{% endblock %}
+</body>
+</html>

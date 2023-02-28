@@ -3,7 +3,7 @@
     "description": "Symfony Bundle for generating and displaying project documentation",
     "type": "symfony-bundle",
     "license": "MIT",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "autoload": {
         "psr-4": {
             "Nvkode\\NvdocBundle\\": "src/"
@@ -18,8 +18,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">= 8.1",
-        "symfony/framework-bundle": "^6.2"
-    },
-    "require-dev": {
+        "symfony/framework-bundle": "^6.2",
+        "nvkode/nvdoc": "^0.0.7"
     }
 }

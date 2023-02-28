@@ -1,0 +1,11 @@
+<section class="mx-auto border-b border-gray-700">
+    <div class="px-4 mx-auto sm:px-6">
+        <h1 class="pt-8 mx-auto text-2xl leading-none tracking-tighter text-comet lg:text-3xl"
+            style="opacity: 1; transform: translateY(0px);">
+            {{ current_namespace|replace({(namespace_doc.namespace ~ '\\'): ''}) }}
+        </h1>
+        <p class="pt-2 pb-8">
+            {{ namespace_doc.namespace }}
+        </p>
+    </div>
+</section>

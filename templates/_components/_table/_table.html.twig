@@ -1,0 +1,38 @@
+{% block table %}
+    {% if titles is defined and arguments is defined and table_macro is defined %}
+        {% block start_table %}
+            <div class="flex flex-col">
+            <div class="overflow-x-auto">
+            <div class="inline-block min-w-full py-2 align-middle">
+            <div class="overflow-hidden border border-gray-700 md:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-700">
+        {% endblock %}
+        {% block thead %}
+            <thead class="bg-gray-800">
+            <tr>
+                {% block thead_content %}
+                    {% for title in titles %}
+                        {% include '@Nvdoc/_components/_table/_header_title.html.twig' with {
+                            title: title
+                        } %}
+                    {% endfor %}
+                {% endblock %}
+            </tr>
+            </thead>
+        {% endblock %}
+        {% block tbody %}
+            {% import table_macro as macro %}
+
+            <tbody class="divide-y divide-gray-700 bg-gray-900 text-gray-300">
+                {{ macro.parse(arguments) }}
+            </tbody>
+        {% endblock %}
+        {% block end_table %}
+            </table>
+            </div>
+            </div>
+            </div>
+            </div>
+        {% endblock %}
+    {% endif %}
+{% endblock %}

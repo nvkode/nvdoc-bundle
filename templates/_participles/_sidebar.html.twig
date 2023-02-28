@@ -1,0 +1,18 @@
+{% import "@Nvdoc/_macros/_menu_macro.html.twig" as menu %}
+
+<div class="z-50 hidden bg-gray-800 lg:flex md:flex-col md:fixed md:inset-y-0 lg:w-[435px]">
+    <div class="flex flex-col flex-1 min-h-0 border-r border-gray-600">
+        <div class="flex flex-col flex-1 pt-8 pb-4 overflow-y-auto lg:px-6">
+            <div class="flex items-center flex-shrink-0 text-comet">
+                <a href="{{ path('nvdoc_read') }}">
+                    <span class="inline-flex items-center font-bold tracking-tighter lg:text-2xl">
+                        {{ 'base.title'|trans({}, 'nvdoc') }}
+                    </span>
+                </a>
+            </div>
+            <nav class="flex-1 mt-10">
+                {{ menu.parse(navigation) }}
+            </nav>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{% macro parse(tree, level=1) %}
+    {% set first_level = level == 1 %}
+
+    {% for key, value in tree %}
+        {% if value is iterable %}
+
+            <div{% if not first_level %} class="border-l"{% endif %}>
+                <p class="text-comet text-sm font-semibold{% if not first_level %} ml-6{% endif %} lg:text-[15px] mb-2">
+                    {{ key ~ '\\' }}
+                </p>
+
+                <div {% if not first_level %} class="ml-6"{% endif %}>
+                    {% set level = level + 1 %}
+                    {{ _self.parse(value, level) }}
+                </div>
+            </div>
+        {% else %}
+            {% include '@Nvdoc/_components/_link.html.twig' with {
+                name: key,
+                path: path('nvdoc_read', {namespace: value}),
+                classes: 'pl-6 text-base font-light border-l',
+                is_active: app.request.get('namespace') is same as(value)
+            } %}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

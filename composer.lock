@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f3e7c5dbe5ad889257011b0646df60b",
+    "content-hash": "3f25d3166d98b0f0c04ed6a4d0c00575",
     "packages": [
+        {
+            "name": "nvkode/nvdoc",
+            "version": "0.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nvkode/nvdoc.git",
+                "reference": "f8a1e9d29e62fa5c339a1774e3b42fc77cf37e08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nvkode/nvdoc/zipball/f8a1e9d29e62fa5c339a1774e3b42fc77cf37e08",
+                "reference": "f8a1e9d29e62fa5c339a1774e3b42fc77cf37e08",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 8.1",
+                "symfony/finder": "^6.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^10.0",
+                "squizlabs/php_codesniffer": "3.7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nvkode\\Nvdoc\\": "src/",
+                    "Nvkode\\Nvdoc\\Tests\\": "tests/",
+                    "Nvkode\\Nvdoc\\Helpers\\": "src/Helpers"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mykyta Melnyk",
+                    "email": "liswelus@gmail.com"
+                }
+            ],
+            "description": "Documentation generator for Symfony projects.",
+            "support": {
+                "issues": "https://github.com/nvkode/nvdoc/issues",
+                "source": "https://github.com/nvkode/nvdoc/tree/v0.0.7"
+            },
+            "time": "2023-02-27T14:16:08+00:00"
+        },
         {
             "name": "psr/cache",
             "version": "3.0.0",
