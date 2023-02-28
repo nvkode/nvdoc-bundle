@@ -1,0 +1,7 @@
+###> intellijidea/phpstorm ###
+/.idea/
+###< intellijidea/phpstorm ###
+
+###> composer ###
+/vendor/
+###< composer ###

@@ -1,0 +1,25 @@
+{
+    "name": "nvkode/nvdoc-bundle",
+    "description": "Symfony Bundle for generating and displaying project documentation",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "version": "0.0.1",
+    "autoload": {
+        "psr-4": {
+            "Nvkode\\NvdocBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mykyta Melnyk",
+            "email": "liswelus@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">= 8.1",
+        "symfony/framework-bundle": "^6.2"
+    },
+    "require-dev": {
+    }
+}
