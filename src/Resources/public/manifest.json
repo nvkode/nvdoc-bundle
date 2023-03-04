@@ -1,0 +1,5 @@
+{
+  "src/Resources/public/docs.js": "/src/Resources/public/docs.js",
+  "src/Resources/public/tailwind.css": "/src/Resources/public/tailwind.css",
+  "src/Resources/public/runtime.js": "/src/Resources/public/runtime.js"
+}

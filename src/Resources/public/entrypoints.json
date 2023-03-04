@@ -1,0 +1,18 @@
+{
+  "entrypoints": {
+    "docs": {
+      "js": [
+        "/src/Resources/public/runtime.js",
+        "/src/Resources/public/docs.js"
+      ]
+    },
+    "tailwind": {
+      "js": [
+        "/src/Resources/public/runtime.js"
+      ],
+      "css": [
+        "/src/Resources/public/tailwind.css"
+      ]
+    }
+  }
+}
