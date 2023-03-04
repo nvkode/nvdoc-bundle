@@ -10,10 +10,12 @@
     <div class="relative z-0 flex flex-1 overflow-hidden">
         <div class="relative z-0 flex-1 overflow-y-auto focus:outline-none lg:pl-[435px]">
             <div class="flex-1 mx-auto">
-                {% include '@Nvdoc/_participles/_page_header.html.twig' with {
-                    current_namespace: currentNamespace,
-                    namespace_doc: namespaceDoc
-                } %}
+                {% if namespaceDoc is not null %}
+                    {% include '@Nvdoc/_participles/_page_header.html.twig' with {
+                        current_namespace: currentNamespace,
+                        namespace_doc: namespaceDoc
+                    } %}
+                {% endif %}
 
                 {% if namespaceDoc is not null %}
                     {% include '@Nvdoc/_tables/_properties.html.twig' with {
