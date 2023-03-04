@@ -82,7 +82,17 @@
                             </span>
                             {% else %}
                                 {% if method.returnType %}
-                                    {{ method.returnType }}
+                                    {% if data[method.returnType.name] is defined %}
+                                        {% include '@Nvdoc/_components/_link.html.twig' with {
+                                            name: method.returnType,
+                                            path: path('nvdoc_read', {namespace: method.returnType.name}),
+                                            style: 'color: rgb(96 165 250);',
+                                            is_active: app.request.get('namespace') is same as(method.returnType.name),
+                                            is_block: false
+                                        } %}
+                                    {% else %}
+                                        {{ method.returnType }}
+                                    {% endif %}
                                 {% else %}
                                     <span class="text-red-500">
                                     {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
