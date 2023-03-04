@@ -1,0 +1,10 @@
+class:
+  methods:
+    private: Private
+    protected: Protected
+    public: Public
+  parameters:
+    empty: No parameters
+  types:
+    undefined: Undefined
+    required: Required

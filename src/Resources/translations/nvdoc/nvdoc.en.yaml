@@ -1,0 +1,14 @@
+base:
+  title: Documentation
+
+read:
+  sections:
+    methods: Methods
+    properties: Properties
+  table:
+    titles:
+      name: Name
+      visibility: Visibility
+      parameters: Parameters
+      return: Return
+      type: Type
