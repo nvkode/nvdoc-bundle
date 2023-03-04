@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Nvkode\NvdocBundle\Controller;
 
+use DateTime;
 use Nvkode\Nvdoc\Nvdoc;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,7 +77,7 @@ class DocumentationController extends AbstractController
             $namespaceDoc = $data[$currentNamespace];
         }
 
-        return $this->render(
+        $response = $this->render(
             '@Nvdoc/read.html.twig',
             [
                 'data'             => $data,
@@ -85,6 +86,27 @@ class DocumentationController extends AbstractController
                 'navigation'       => $navigation,
             ]
         );
+
+        if ($this->getParameter('kernel.environment') !== 'dev') {
+            $response->setCache(
+                [
+                    'must_revalidate'  => false,
+                    'no_cache'         => false,
+                    'no_store'         => false,
+                    'no_transform'     => false,
+                    'public'           => true,
+                    'private'          => false,
+                    'proxy_revalidate' => false,
+                    'max_age'          => 3600,
+                    's_maxage'         => 3600,
+                    'immutable'        => true,
+                    'last_modified'    => new DateTime(),
+                    'etag'             => 'nvdoc_read'
+                ]
+            );
+        }
+
+        return $response;
 
     }
 
