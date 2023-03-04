@@ -1,46 +1,56 @@
 {% macro parse(namespace_doc, current_namespace) %}
     {% set properties_count = 0 %}
 
-    {% for property in namespace_doc.properties %}
-        {% if property.declaringClass is defined %}
-            {% if property.declaringClass.name is same as(current_namespace) %}
-                <tr>
-                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                        {{ property.name }}
-                    </td>
-                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                        {% if property.isPrivate %}
-                            {% set property_color = 'text-red-500' %}
-                            {% set property_text = 'class.methods.private'|trans({}, 'nvdoc_namespace') %}
-                        {% elseif property.isProtected %}
-                            {% set property_color = 'text-gray-300' %}
-                            {% set property_text = 'class.methods.protected'|trans({}, 'nvdoc_namespace') %}
-                        {% else %}
-                            {% set property_color = 'text-emerald-500' %}
-                            {% set property_text = 'class.methods.public'|trans({}, 'nvdoc_namespace') %}
-                        {% endif %}
+    {% if namespace_doc.properties is not empty %}
+        {% for property in namespace_doc.properties %}
+            {% if property.declaringClass is defined %}
+                {% if property.declaringClass.name is same as(current_namespace) %}
+                    <tr>
+                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                            {{ property.name }}
+                        </td>
+                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                            {% if property.isPrivate %}
+                                {% set property_color = 'text-red-500' %}
+                                {% set property_text = 'class.methods.private'|trans({}, 'nvdoc_namespace') %}
+                            {% elseif property.isProtected %}
+                                {% set property_color = 'text-gray-300' %}
+                                {% set property_text = 'class.methods.protected'|trans({}, 'nvdoc_namespace') %}
+                            {% else %}
+                                {% set property_color = 'text-emerald-500' %}
+                                {% set property_text = 'class.methods.public'|trans({}, 'nvdoc_namespace') %}
+                            {% endif %}
 
-                        <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ property_color }} gap-x-2 dark:bg-gray-800">
-                            {{ property_text }}
-                        </div>
-                    </td>
-                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                        {% if property.type %}
-                            {{ property.type }}
-                        {% else %}
-                            <span class="text-red-500">
+                            <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ property_color }} gap-x-2 dark:bg-gray-800">
+                                {{ property_text }}
+                            </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                            {% if property.type %}
+                                {{ property.type }}
+                            {% else %}
+                                <span class="text-red-500">
                                 {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
                             </span>
-                        {% endif %}
-                    </td>
-                </tr>
+                            {% endif %}
+                        </td>
+                    </tr>
 
-                {% set properties_count = properties_count + 1 %}
+                    {% set properties_count = properties_count + 1 %}
+                {% endif %}
             {% endif %}
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
 
-    {% if properties_count is same as(0) %}
+        {% if properties_count is same as(0) %}
+            <tr>
+                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                    {{ 'class.properties.inherited'|trans({}, 'nvdoc_namespace') }}
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+    {% else %}
         <tr>
             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                 {{ 'class.properties.empty'|trans({}, 'nvdoc_namespace') }}

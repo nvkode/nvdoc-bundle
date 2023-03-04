@@ -3,11 +3,13 @@ class:
     private: Private
     protected: Protected
     public: Public
-    empty: Class has only inherited methods
+    inherited: Class has only inherited methods
+    empty: Class has no methods
   parameters:
     empty: No parameters
   properties:
-    empty: Class has only inherited properties
+    inherited: Class has only inherited properties
+    empty: Class has no properties
   types:
     undefined: Undefined
     required: Required

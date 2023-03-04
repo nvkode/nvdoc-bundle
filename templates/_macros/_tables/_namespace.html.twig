@@ -7,86 +7,97 @@
 
     {% set method_count = 0 %}
 
-    {% for method in namespace_doc.methods %}
-        {% if method.declaringClass is defined %}
-            {% if method.declaringClass.name is same as(current_namespace) %}
-                <tr>
-                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                        {{ method.name }}
-                    </td>
-                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                        {% if method.isPrivate %}
-                            {% set method_color = 'text-red-500' %}
-                            {% set method_text = 'class.methods.private'|trans({}, 'nvdoc_namespace') %}
-                        {% elseif method.isProtected %}
-                            {% set method_color = 'text-gray-300' %}
-                            {% set method_text = 'class.methods.protected'|trans({}, 'nvdoc_namespace') %}
-                        {% else %}
-                            {% set method_color = 'text-emerald-500' %}
-                            {% set method_text = 'class.methods.public'|trans({}, 'nvdoc_namespace') %}
-                        {% endif %}
+    {% if namespace_doc.methods is not empty %}
+        {% for method in namespace_doc.methods %}
+            {% if method.declaringClass is defined %}
+                {% if method.declaringClass.name is same as(current_namespace) %}
+                    <tr>
+                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                            {{ method.name }}
+                        </td>
+                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                            {% if method.isPrivate %}
+                                {% set method_color = 'text-red-500' %}
+                                {% set method_text = 'class.methods.private'|trans({}, 'nvdoc_namespace') %}
+                            {% elseif method.isProtected %}
+                                {% set method_color = 'text-gray-300' %}
+                                {% set method_text = 'class.methods.protected'|trans({}, 'nvdoc_namespace') %}
+                            {% else %}
+                                {% set method_color = 'text-emerald-500' %}
+                                {% set method_text = 'class.methods.public'|trans({}, 'nvdoc_namespace') %}
+                            {% endif %}
 
-                        <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ method_color }} gap-x-2 dark:bg-gray-800">
-                            {{ method_text }}
-                        </div>
-                    </td>
-                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                        {% if method.parameters|length > 0 %}
-                            <table>
-                                <tbody>
-                                {% for parameter in method.parameters %}
-                                    <tr>
-                                        <td>
-                                            <span class="font-semibold">{{ parameter.name }}</span>:
-                                        </td>
-                                        <td class="pl-2">
-                                            {% if parameter.type %}
-                                                {{ parameter.type }}
-                                            {% else %}
-                                                <span class="text-red-500">
+                            <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ method_color }} gap-x-2 dark:bg-gray-800">
+                                {{ method_text }}
+                            </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                            {% if method.parameters|length > 0 %}
+                                <table>
+                                    <tbody>
+                                    {% for parameter in method.parameters %}
+                                        <tr>
+                                            <td>
+                                                <span class="font-semibold">{{ parameter.name }}</span>:
+                                            </td>
+                                            <td class="pl-2">
+                                                {% if parameter.type %}
+                                                    {{ parameter.type }}
+                                                {% else %}
+                                                    <span class="text-red-500">
                                                     {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
                                                 </span>
-                                                    {% endif %}
-                                                    {% if parameter.isOptional == false %}
-                                                        <span class="text-red-500 text-semibold">
+                                                {% endif %}
+                                                {% if parameter.isOptional == false %}
+                                                    <span class="text-red-500 text-semibold">
                                                     {{ 'class.types.required'|trans({}, 'nvdoc_namespace') }}
                                                 </span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        {% else %}
-                            <span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <span>
                         {{ 'class.parameters.empty'|trans({}, 'nvdoc_namespace') }}
                     </span>
-                        {% endif %}
-                    </td>
+                            {% endif %}
+                        </td>
 
-                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                        {% if default_methods[method.name] is defined %}
-                            <span>
+                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                            {% if default_methods[method.name] is defined %}
+                                <span>
                                 {{ default_methods[method.name] }}
                             </span>
-                        {% else %}
-                            {% if method.returnType %}
-                                {{ method.returnType }}
                             {% else %}
-                                <span class="text-red-500">
+                                {% if method.returnType %}
+                                    {{ method.returnType }}
+                                {% else %}
+                                    <span class="text-red-500">
                                     {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
                                 </span>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-                {% set method_count = method_count + 1 %}
+                    {% set method_count = method_count + 1 %}
+                {% endif %}
             {% endif %}
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
 
-    {% if method_count is same as(0) %}
+        {% if method_count is same as(0) %}
+            <tr>
+                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                    {{ 'class.methods.inherited'|trans({}, 'nvdoc_namespace') }}
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+    {% else %}
         <tr>
             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                 {{ 'class.methods.empty'|trans({}, 'nvdoc_namespace') }}
