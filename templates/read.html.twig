@@ -1,16 +1,5 @@
 {% extends '@Nvdoc/base.html.twig' %}
 
-{% set titles = [
-    'read.table.titles.name'|trans({}, 'nvdoc'),
-    'read.table.titles.visibility'|trans({}, 'nvdoc'),
-    'read.table.titles.parameters'|trans({}, 'nvdoc'),
-    'read.table.titles.return'|trans({}, 'nvdoc')
-] %}
-{% set table_macro = '@Nvdoc/_macros/_tables/_namespace.html.twig' %}
-{% set arguments = namespaceDoc %}
-
-{% use '@Nvdoc/_components/_table/_table.html.twig' %}
-
 {% block title %}{{ 'base.title'|trans({}, 'nvdoc') }}{% endblock %}
 
 {% block page %}
@@ -18,29 +7,24 @@
         navigation: navigation
     } %}
 
-    {% if namespaceDoc is not null %}
-        <div class="relative z-0 flex flex-1 overflow-hidden">
-            <div class="relative z-0 flex-1 overflow-y-auto focus:outline-none lg:pl-[435px]">
-                <div class="flex-1 mx-auto">
-                    {% include '@Nvdoc/_participles/_page_header.html.twig' with {
-                        current_namespace: currentNamespace,
-                        namespace_doc: namespaceDoc
+    <div class="relative z-0 flex flex-1 overflow-hidden">
+        <div class="relative z-0 flex-1 overflow-y-auto focus:outline-none lg:pl-[435px]">
+            <div class="flex-1 mx-auto">
+                {% include '@Nvdoc/_participles/_page_header.html.twig' with {
+                    current_namespace: currentNamespace,
+                    namespace_doc: namespaceDoc
+                } %}
+
+                {% if namespaceDoc is not null %}
+                    {% include '@Nvdoc/_tables/_properties.html.twig' with {
+                        namespaceDoc: namespaceDoc
                     } %}
-                    <div class="px-4 mx-auto sm:px-6 py-6">
-                        {% if namespaceDoc.methods|length > 0 %}
-                            <h2 class="text-comet font-semibold text-xl mb-2">
-                                {{ 'read.sections.methods'|trans({}, 'nvdoc') }}
-                            </h2>
-                        {% endif %}
-                        {% block table %}
-                            {# twigcs use-var titles #}
-                            {# twigcs use-var table_macro #}
-                            {# twigcs use-var arguments #}
-                            {{ parent() }}
-                        {% endblock %}
-                    </div>
-                </div>
+
+                    {% include '@Nvdoc/_tables/_methods.html.twig' with {
+                        namespaceDoc: namespaceDoc
+                    } %}
+                {% endif %}
             </div>
         </div>
-    {% endif %}
+    </div>
 {% endblock %}

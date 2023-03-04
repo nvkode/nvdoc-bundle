@@ -1,0 +1,34 @@
+{% macro parse(namespaceDoc) %}
+    {% for property in namespaceDoc.properties %}
+        <tr>
+            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                {{ property.name }}
+            </td>
+            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                {% if property.isPrivate %}
+                    {% set property_color = 'text-red-500' %}
+                    {% set property_text = 'class.methods.private'|trans({}, 'namespace') %}
+                {% elseif property.isProtected %}
+                    {% set property_color = 'text-gray-300' %}
+                    {% set property_text = 'class.methods.protected'|trans({}, 'namespace') %}
+                {% else %}
+                    {% set property_color = 'text-emerald-500' %}
+                    {% set property_text = 'class.methods.public'|trans({}, 'namespace') %}
+                {% endif %}
+
+                <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ property_color }} gap-x-2 dark:bg-gray-800">
+                    {{ property_text }}
+                </div>
+            </td>
+            <td class="px-4 py-4 text-sm whitespace-nowrap">
+                {% if property.type %}
+                    {{ property.type }}
+                {% else %}
+                    <span class="text-red-500">
+                        {{ 'class.types.undefined'|trans({}, 'namespace') }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endmacro %}
