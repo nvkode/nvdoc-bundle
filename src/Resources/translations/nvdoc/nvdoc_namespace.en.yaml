@@ -3,8 +3,11 @@ class:
     private: Private
     protected: Protected
     public: Public
+    empty: Class has only inherited methods
   parameters:
     empty: No parameters
+  properties:
+    empty: Class has only inherited properties
   types:
     undefined: Undefined
     required: Required

@@ -1,9 +1,11 @@
 {% macro parse(namespace_doc, current_namespace) %}
     {% set default_methods = {
-        '__construct': 'class.types.void'|trans({}, 'namespace'),
-        '__clone': 'class.types.void'|trans({}, 'namespace'),
-        '__wakeup': 'class.types.bool'|trans({}, 'namespace')
+        '__construct': 'class.types.void'|trans({}, 'nvdoc_namespace'),
+        '__clone': 'class.types.void'|trans({}, 'nvdoc_namespace'),
+        '__wakeup': 'class.types.bool'|trans({}, 'nvdoc_namespace')
     } %}
+
+    {% set method_count = 0 %}
 
     {% for method in namespace_doc.methods %}
         {% if method.declaringClass is defined %}
@@ -15,13 +17,13 @@
                     <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                         {% if method.isPrivate %}
                             {% set method_color = 'text-red-500' %}
-                            {% set method_text = 'class.methods.private'|trans({}, 'namespace') %}
+                            {% set method_text = 'class.methods.private'|trans({}, 'nvdoc_namespace') %}
                         {% elseif method.isProtected %}
                             {% set method_color = 'text-gray-300' %}
-                            {% set method_text = 'class.methods.protected'|trans({}, 'namespace') %}
+                            {% set method_text = 'class.methods.protected'|trans({}, 'nvdoc_namespace') %}
                         {% else %}
                             {% set method_color = 'text-emerald-500' %}
-                            {% set method_text = 'class.methods.public'|trans({}, 'namespace') %}
+                            {% set method_text = 'class.methods.public'|trans({}, 'nvdoc_namespace') %}
                         {% endif %}
 
                         <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ method_color }} gap-x-2 dark:bg-gray-800">
@@ -42,13 +44,13 @@
                                                 {{ parameter.type }}
                                             {% else %}
                                                 <span class="text-red-500">
-                                            {{ 'class.types.undefined'|trans({}, 'namespace') }}
-                                        </span>
-                                            {% endif %}
-                                            {% if parameter.isOptional == false %}
-                                                <span class="text-red-500 text-semibold">
-                                            {{ 'class.types.required'|trans({}, 'namespace') }}
-                                        </span>
+                                                    {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
+                                                </span>
+                                                    {% endif %}
+                                                    {% if parameter.isOptional == false %}
+                                                        <span class="text-red-500 text-semibold">
+                                                    {{ 'class.types.required'|trans({}, 'nvdoc_namespace') }}
+                                                </span>
                                             {% endif %}
                                         </td>
                                     </tr>
@@ -57,7 +59,7 @@
                             </table>
                         {% else %}
                             <span>
-                        {{ 'class.parameters.empty'|trans({}, 'namespace') }}
+                        {{ 'class.parameters.empty'|trans({}, 'nvdoc_namespace') }}
                     </span>
                         {% endif %}
                     </td>
@@ -65,20 +67,33 @@
                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                         {% if default_methods[method.name] is defined %}
                             <span>
-                        {{ default_methods[method.name] }}
-                    </span>
+                                {{ default_methods[method.name] }}
+                            </span>
                         {% else %}
                             {% if method.returnType %}
                                 {{ method.returnType }}
                             {% else %}
                                 <span class="text-red-500">
-                            {{ 'class.types.undefined'|trans({}, 'namespace') }}
-                        </span>
+                                    {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
+                                </span>
                             {% endif %}
                         {% endif %}
                     </td>
                 </tr>
+
+                {% set method_count = method_count + 1 %}
             {% endif %}
         {% endif %}
     {% endfor %}
+
+    {% if method_count is same as(0) %}
+        <tr>
+            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                {{ 'class.methods.empty'|trans({}, 'nvdoc_namespace') }}
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endif %}
 {% endmacro %}
