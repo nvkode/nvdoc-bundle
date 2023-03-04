@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Nvkode\NvdocBundle\Compiler;
 
+use Exception;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -36,6 +37,8 @@ class TwigCompiler implements CompilerPassInterface
      * @param ContainerBuilder $container Symfony container
      *
      * @return void
+     *
+     * @throws Exception
      */
     public function process(ContainerBuilder $container): void
     {
@@ -48,6 +51,8 @@ class TwigCompiler implements CompilerPassInterface
                 'addPath',
                 [sprintf('%s/templates', $bundleDirectory), 'Nvdoc']
             );
+        } else {
+            throw new Exception('Twig is required in project');
         }
     }
 }
