@@ -3,7 +3,7 @@
     "description": "Symfony Bundle for generating and displaying project documentation",
     "type": "symfony-bundle",
     "license": "MIT",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "autoload": {
         "psr-4": {
             "Nvkode\\NvdocBundle\\": "src/"
@@ -18,7 +18,8 @@
     "scripts": {
         "validation:code": [
             "phpcs src --extensions=php",
-            "phpstan analyse -l 8 src"
+            "phpstan analyse -l 8 src",
+            "twigcs templates"
         ]
     },
     "minimum-stability": "stable",
@@ -26,7 +27,8 @@
         "php": ">= 8.1",
         "symfony/framework-bundle": "^6.2",
         "nvkode/nvdoc": "^0.0.7",
-        "symfony/webpack-encore-bundle": "^1.16"
+        "symfony/webpack-encore-bundle": "^1.16",
+        "friendsoftwig/twigcs": "^6.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "3.7.2",
