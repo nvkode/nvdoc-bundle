@@ -24,7 +24,7 @@
             {% import table_macro as macro %}
 
             <tbody class="divide-y divide-gray-700 bg-gray-900 text-gray-300">
-                {{ macro.parse(arguments, current_namespace) }}
+                {{ macro.parse(arguments, current_namespace, data) }}
             </tbody>
         {% endblock %}
         {% block end_table %}

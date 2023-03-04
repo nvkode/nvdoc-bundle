@@ -1,4 +1,4 @@
-{% macro parse(namespace_doc, current_namespace) %}
+{% macro parse(namespace_doc, current_namespace, data) %}
     {% set properties_count = 0 %}
 
     {% if namespace_doc.properties is not empty %}

@@ -1,4 +1,4 @@
-{% macro parse(namespace_doc, current_namespace) %}
+{% macro parse(namespace_doc, current_namespace, data) %}
     {% set default_methods = {
         '__construct': 'class.types.void'|trans({}, 'nvdoc_namespace'),
         '__clone': 'class.types.void'|trans({}, 'nvdoc_namespace'),
@@ -42,11 +42,21 @@
                                             </td>
                                             <td class="pl-2">
                                                 {% if parameter.type %}
-                                                    {{ parameter.type }}
+                                                    {% if data[parameter.type.name] is defined %}
+                                                        {% include '@Nvdoc/_components/_link.html.twig' with {
+                                                            name: parameter.type,
+                                                            path: path('nvdoc_read', {namespace: parameter.type.name}),
+                                                            style: 'color: rgb(96 165 250);',
+                                                            is_active: app.request.get('namespace') is same as(parameter.type.name),
+                                                            is_block: false
+                                                        } %}
+                                                    {% else %}
+                                                        {{ parameter.type }}
+                                                    {% endif %}
                                                 {% else %}
                                                     <span class="text-red-500">
-                                                    {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
-                                                </span>
+                                                        {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
+                                                    </span>
                                                 {% endif %}
                                                 {% if parameter.isOptional == false %}
                                                     <span class="text-red-500 text-semibold">

@@ -18,8 +18,9 @@
             {% include '@Nvdoc/_components/_link.html.twig' with {
                 name: key,
                 path: path('nvdoc_read', {namespace: value}),
-                classes: 'pl-6 text-base font-light border-l',
-                is_active: app.request.get('namespace') is same as(value)
+                class: 'pl-6 text-base font-light border-l',
+                is_active: app.request.get('namespace') is same as(value),
+                is_block: true
             } %}
         {% endif %}
     {% endfor %}

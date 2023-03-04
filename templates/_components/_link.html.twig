@@ -1,4 +1,5 @@
 <a href="{% if is_active %}#{% else %}{{ path }}{% endif %}"
-   class="{{ classes }}{% if is_active is same as(true) %} !font-normal{% endif %} block">
+   {% if class is defined %}class="{{ class }}{% if is_active is same as(true) %} !font-normal{% endif %}{% if is_block %} block{% endif %}"{% endif %}
+        {% if style is defined %}style="{{ style }}"{% endif %}>
     {{ name }}
 </a>
