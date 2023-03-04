@@ -52,9 +52,14 @@ class DocumentationController extends AbstractController
     {
         // Get documentation about all files in src dir.
         $projectDir = $this->getParameter('kernel.project_dir');
-        $data       = (new Nvdoc($projectDir))->getFilesInformation(
-            sprintf("%s/%s", $projectDir, 'src')
-        );
+
+        if (is_string($projectDir) === true) {
+            $data = (new Nvdoc($projectDir))->getFilesInformation(
+                sprintf("%s/%s", $projectDir, 'src')
+            );
+        } else {
+            $data = [];
+        }
 
         // Create navigation from data.
         $navigation = $this->_arrayToTree(array_keys($data));

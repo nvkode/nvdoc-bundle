@@ -36,8 +36,8 @@ class NvdocExtension extends Extension
     /**
      * Load services.yaml configuration into Symfony project.
      *
-     * @param array            $configs   All configs
-     * @param ContainerBuilder $container Symfony container
+     * @param array<string, mixed> $configs   All configs
+     * @param ContainerBuilder     $container Symfony container
      *
      * @return void
      *
