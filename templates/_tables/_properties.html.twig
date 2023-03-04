@@ -8,16 +8,17 @@
 {% set table_macro = '@Nvdoc/_macros/_tables/_property.html.twig' %}
 {% set arguments = namespaceDoc %}
 
-<div class="px-4 mx-auto sm:px-6 py-6">
-    {% if namespaceDoc.properties|length > 0 %}
+{% if namespaceDoc.properties is not empty %}
+    <div class="px-4 mx-auto sm:px-6 py-6">
         <h2 class="text-comet font-semibold text-xl mb-2">
             {{ 'read.sections.properties'|trans({}, 'nvdoc') }}
         </h2>
-    {% endif %}
-    {% block table %}
-        {# twigcs use-var titles #}
-        {# twigcs use-var table_macro #}
-        {# twigcs use-var arguments #}
-        {{ parent() }}
-    {% endblock %}
-</div>
+
+        {% block table %}
+            {# twigcs use-var titles #}
+            {# twigcs use-var table_macro #}
+            {# twigcs use-var arguments #}
+            {{ parent() }}
+        {% endblock %}
+    </div>
+{% endif %}

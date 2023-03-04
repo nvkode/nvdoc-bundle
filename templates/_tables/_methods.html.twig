@@ -9,16 +9,16 @@
 {% set table_macro = '@Nvdoc/_macros/_tables/_namespace.html.twig' %}
 {% set arguments = namespaceDoc %}
 
-<div class="px-4 mx-auto sm:px-6 py-6">
-    {% if namespaceDoc.methods|length > 0 %}
+{% if namespaceDoc.methods is not empty %}
+    <div class="px-4 mx-auto sm:px-6 py-6">
         <h2 class="text-comet font-semibold text-xl mb-2">
             {{ 'read.sections.methods'|trans({}, 'nvdoc') }}
         </h2>
-    {% endif %}
-    {% block table %}
-        {# twigcs use-var titles #}
-        {# twigcs use-var table_macro #}
-        {# twigcs use-var arguments #}
-        {{ parent() }}
-    {% endblock %}
-</div>
+        {% block table %}
+            {# twigcs use-var titles #}
+            {# twigcs use-var table_macro #}
+            {# twigcs use-var arguments #}
+            {{ parent() }}
+        {% endblock %}
+    </div>
+{% endif %}
