@@ -8,3 +8,5 @@ class:
   types:
     undefined: Undefined
     required: Required
+    void: void
+    bool: bool
