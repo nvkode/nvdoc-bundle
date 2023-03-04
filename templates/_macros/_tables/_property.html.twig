@@ -1,5 +1,5 @@
-{% macro parse(namespaceDoc) %}
-    {% for property in namespaceDoc.properties %}
+{% macro parse(namespace_doc) %}
+    {% for property in namespace_doc.properties %}
         <tr>
             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                 {{ property.name }}

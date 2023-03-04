@@ -1,80 +1,84 @@
-{% macro parse(namespaceDoc) %}
+{% macro parse(namespace_doc, current_namespace) %}
     {% set default_methods = {
         '__construct': 'class.types.void'|trans({}, 'namespace'),
         '__clone': 'class.types.void'|trans({}, 'namespace'),
         '__wakeup': 'class.types.bool'|trans({}, 'namespace')
     } %}
 
-    {% for method in namespaceDoc.methods %}
-        <tr>
-            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                {{ method.name }}
-            </td>
-            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                {% if method.isPrivate %}
-                    {% set method_color = 'text-red-500' %}
-                    {% set method_text = 'class.methods.private'|trans({}, 'namespace') %}
-                {% elseif method.isProtected %}
-                    {% set method_color = 'text-gray-300' %}
-                    {% set method_text = 'class.methods.protected'|trans({}, 'namespace') %}
-                {% else %}
-                    {% set method_color = 'text-emerald-500' %}
-                    {% set method_text = 'class.methods.public'|trans({}, 'namespace') %}
-                {% endif %}
+    {% for method in namespace_doc.methods %}
+        {% if method.declaringClass is defined %}
+            {% if method.declaringClass.name is same as(current_namespace) %}
+                <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                        {{ method.name }}
+                    </td>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                        {% if method.isPrivate %}
+                            {% set method_color = 'text-red-500' %}
+                            {% set method_text = 'class.methods.private'|trans({}, 'namespace') %}
+                        {% elseif method.isProtected %}
+                            {% set method_color = 'text-gray-300' %}
+                            {% set method_text = 'class.methods.protected'|trans({}, 'namespace') %}
+                        {% else %}
+                            {% set method_color = 'text-emerald-500' %}
+                            {% set method_text = 'class.methods.public'|trans({}, 'namespace') %}
+                        {% endif %}
 
-                <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ method_color }} gap-x-2 dark:bg-gray-800">
-                    {{ method_text }}
-                </div>
-            </td>
-            <td class="px-4 py-4 text-sm whitespace-nowrap">
-                {% if method.parameters|length > 0 %}
-                    <table>
-                        <tbody>
-                        {% for parameter in method.parameters %}
-                            <tr>
-                                <td>
-                                    <span class="font-semibold">{{ parameter.name }}</span>:
-                                </td>
-                                <td class="pl-2">
-                                    {% if parameter.type %}
-                                        {{ parameter.type }}
-                                    {% else %}
-                                        <span class="text-red-500">
+                        <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ method_color }} gap-x-2 dark:bg-gray-800">
+                            {{ method_text }}
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                        {% if method.parameters|length > 0 %}
+                            <table>
+                                <tbody>
+                                {% for parameter in method.parameters %}
+                                    <tr>
+                                        <td>
+                                            <span class="font-semibold">{{ parameter.name }}</span>:
+                                        </td>
+                                        <td class="pl-2">
+                                            {% if parameter.type %}
+                                                {{ parameter.type }}
+                                            {% else %}
+                                                <span class="text-red-500">
                                             {{ 'class.types.undefined'|trans({}, 'namespace') }}
                                         </span>
-                                    {% endif %}
-                                    {% if parameter.isOptional == false %}
-                                        <span class="text-red-500 text-semibold">
+                                            {% endif %}
+                                            {% if parameter.isOptional == false %}
+                                                <span class="text-red-500 text-semibold">
                                             {{ 'class.types.required'|trans({}, 'namespace') }}
                                         </span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                {% else %}
-                    <span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <span>
                         {{ 'class.parameters.empty'|trans({}, 'namespace') }}
                     </span>
-                {% endif %}
-            </td>
+                        {% endif %}
+                    </td>
 
-            <td class="px-4 py-4 text-sm whitespace-nowrap">
-                {% if default_methods[method.name] is defined %}
-                    <span>
+                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                        {% if default_methods[method.name] is defined %}
+                            <span>
                         {{ default_methods[method.name] }}
                     </span>
-                {% else %}
-                    {% if method.returnType %}
-                        {{ method.returnType }}
-                    {% else %}
-                        <span class="text-red-500">
+                        {% else %}
+                            {% if method.returnType %}
+                                {{ method.returnType }}
+                            {% else %}
+                                <span class="text-red-500">
                             {{ 'class.types.undefined'|trans({}, 'namespace') }}
                         </span>
-                    {% endif %}
-                {% endif %}
-            </td>
-        </tr>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endif %}
     {% endfor %}
 {% endmacro %}

@@ -19,11 +19,13 @@
 
                 {% if namespaceDoc is not null %}
                     {% include '@Nvdoc/_tables/_properties.html.twig' with {
-                        namespaceDoc: namespaceDoc
+                        current_namespace: currentNamespace,
+                        namespace_doc: namespaceDoc
                     } %}
 
                     {% include '@Nvdoc/_tables/_methods.html.twig' with {
-                        namespaceDoc: namespaceDoc
+                        current_namespace: currentNamespace,
+                        namespace_doc: namespaceDoc
                     } %}
                 {% endif %}
             </div>

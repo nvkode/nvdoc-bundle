@@ -7,9 +7,10 @@
     'read.table.titles.return'|trans({}, 'nvdoc')
 ] %}
 {% set table_macro = '@Nvdoc/_macros/_tables/_namespace.html.twig' %}
-{% set arguments = namespaceDoc %}
+{% set arguments = namespace_doc %}
+{% set current_namespace = current_namespace %}
 
-{% if namespaceDoc.methods is not empty %}
+{% if namespace_doc.methods is not empty %}
     <div class="px-4 mx-auto sm:px-6 py-6">
         <h2 class="text-comet font-semibold text-xl mb-2">
             {{ 'read.sections.methods'|trans({}, 'nvdoc') }}

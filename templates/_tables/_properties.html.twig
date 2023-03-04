@@ -6,9 +6,10 @@
     'read.table.titles.type'|trans({}, 'nvdoc')
 ] %}
 {% set table_macro = '@Nvdoc/_macros/_tables/_property.html.twig' %}
-{% set arguments = namespaceDoc %}
+{% set arguments = namespace_doc %}
+{% set current_namespace = current_namespace %}
 
-{% if namespaceDoc.properties is not empty %}
+{% if namespace_doc.properties is not empty %}
     <div class="px-4 mx-auto sm:px-6 py-6">
         <h2 class="text-comet font-semibold text-xl mb-2">
             {{ 'read.sections.properties'|trans({}, 'nvdoc') }}
