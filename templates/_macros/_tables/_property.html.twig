@@ -27,7 +27,17 @@
                         </td>
                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                             {% if property.type %}
-                                {{ property.type }}
+                                {% if data[property.type.name] is defined %}
+                                    {% include '@Nvdoc/_components/_link.html.twig' with {
+                                        name: property.type,
+                                        path: path('nvdoc_read', {namespace: property.type.name}),
+                                        style: 'color: rgb(96 165 250);',
+                                        is_active: app.request.get('namespace') is same as(property.type.name),
+                                        is_block: false
+                                    } %}
+                                {% else %}
+                                    {{ property.type }}
+                                {% endif %}
                             {% else %}
                                 <span class="text-red-500">
                                 {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
