@@ -27,6 +27,36 @@ Now you can access docs
 
 `https://yourdomain/docs`
 
+Annotations
+---------
+
+**NVParam**
+
+For displaying method in Routes table you should use #[Route] attribute.
+NVParam is optional annotation which will be parsed in parameters column.
+
+Example:
+
+```php
+
+/**
+ * @NVParam('name', 'type', 'required')
+ * @NVParam('name', 'type')
+ * @NVParam('name')
+ */
+#[Route(
+    path: '/'
+)]
+public function index(): Response
+{
+    return $this->render('index.html.twig');
+}
+```
+
+| Name  | Route | Parameters                                                                        |
+|-------|-------|-----------------------------------------------------------------------------------|
+| index | /     | name string    REQUIRED<br/>name type      undefined<br/>name undefined undefined |
+
 Dependencies
 ---------
 
