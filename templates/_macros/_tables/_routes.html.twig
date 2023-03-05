@@ -61,24 +61,24 @@
 
                                                     {% set data = annotation|split('(')[1]|trim(')')|replace({'\'': '', '\"': ''})|split(', ') %}
 
-                                                    {% if data[0] is defined %}
+                                                    {% if data[0] is defined and data[0] is not same as('') %}
                                                         <tr>
                                                             <td>
                                                                 {{ data[0] }}
                                                             </td>
 
                                                             <td class="pl-2">
-                                                                {% if data[1] is defined %}
+                                                                {% if data[1] is defined and data[1] is not same as('') %}
                                                                     {{ data[1] }}
                                                                 {% else %}
                                                                     <span class="text-red-500 lowercase">
-                                                                            {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
-                                                                        </span>
+                                                                        {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
+                                                                    </span>
                                                                 {% endif %}
                                                             </td>
 
                                                             <td class="pl-2">
-                                                                {% if data[2] is defined %}
+                                                                {% if data[2] is defined and data[2] is not same as('') %}
                                                                     <span class="uppercase">{{ data[2] }}</span>
                                                                 {% else %}
                                                                     <span class="text-red-500 lowercase">
