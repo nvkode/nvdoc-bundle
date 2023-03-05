@@ -15,3 +15,5 @@ class:
     required: Required
     void: void
     bool: bool
+  api:
+    empty: Class has no API methods

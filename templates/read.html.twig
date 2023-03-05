@@ -23,6 +23,11 @@
                         namespace_doc: namespaceDoc
                     } %}
 
+                    {% include '@Nvdoc/_tables/_api.html.twig' with {
+                        current_namespace: currentNamespace,
+                        namespace_doc: namespaceDoc
+                    } %}
+
                     {% include '@Nvdoc/_tables/_methods.html.twig' with {
                         current_namespace: currentNamespace,
                         namespace_doc: namespaceDoc

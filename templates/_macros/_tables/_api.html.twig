@@ -1,0 +1,58 @@
+{% macro parse(namespace_doc, current_namespace, data) %}
+    {% set default_methods = {
+        '__construct': 'class.types.void'|trans({}, 'nvdoc_namespace'),
+        '__clone': 'class.types.void'|trans({}, 'nvdoc_namespace'),
+        '__wakeup': 'class.types.bool'|trans({}, 'nvdoc_namespace')
+    } %}
+
+    {% set method_count = 0 %}
+
+    {% if namespace_doc.methods is not empty %}
+        {% for method in namespace_doc.methods %}
+            {% if method.declaringClass is defined %}
+                {% if method.declaringClass.name is same as(current_namespace) %}
+                    {% for attribute in method.attributes %}
+                        {% if attribute.name is same as('Symfony\\Component\\Routing\\Annotation\\Route') %}
+                            {% if attribute.arguments is not empty %}
+                                {% if attribute.arguments['path'] is defined %}
+                                    {% set path = attribute.arguments['path'] %}
+                                {% else %}
+                                    {% set path = attribute.arguments[0] %}
+                                {% endif %}
+
+                                <tr>
+                                    {% include '@Nvdoc/_components/_table/_fields/_name.html.twig' with {
+                                        entity: method
+                                    } %}
+                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <span class="px-3 py-1 bg-slate-800 rounded">
+                                            {{ path }}
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                {% set method_count = method_count + 1 %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if method_count is same as(0) %}
+            <tr>
+                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                    {{ 'class.api.empty'|trans({}, 'nvdoc_namespace') }}
+                </td>
+                <td></td>
+            </tr>
+        {% endif %}
+    {% else %}
+        <tr>
+            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                {{ 'class.api.empty'|trans({}, 'nvdoc_namespace') }}
+            </td>
+            <td></td>
+        </tr>
+    {% endif %}
+{% endmacro %}

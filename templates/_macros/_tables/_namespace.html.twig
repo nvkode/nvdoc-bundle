@@ -15,31 +15,6 @@
                         {% include '@Nvdoc/_components/_table/_fields/_name.html.twig' with {
                             entity: method
                         } %}
-                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                            {% set path = '' %}
-
-                            {% for attribute in method.attributes %}
-                                {% if attribute.name is same as('Symfony\\Component\\Routing\\Annotation\\Route') %}
-                                    {% if attribute.arguments is not empty %}
-                                        {% if attribute.arguments['path'] is defined %}
-                                            {% set path = attribute.arguments['path'] %}
-                                        {% else %}
-                                            {% set path = attribute.arguments[0] %}
-                                        {% endif %}
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-
-                            {% if path is not same as('') %}
-                                <span class="px-3 py-1 bg-slate-800 rounded">
-                                    {{ path }}
-                                </span>
-                            {% else %}
-                                <span>
-                                    {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
-                                </span>
-                            {% endif %}
-                        </td>
                         {% include '@Nvdoc/_components/_table/_fields/_status.html.twig' with {
                             entity: method
                         } %}
@@ -127,7 +102,6 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
             </tr>
         {% endif %}
     {% else %}
@@ -135,7 +109,6 @@
             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                 {{ 'class.methods.empty'|trans({}, 'nvdoc_namespace') }}
             </td>
-            <td></td>
             <td></td>
             <td></td>
             <td></td>

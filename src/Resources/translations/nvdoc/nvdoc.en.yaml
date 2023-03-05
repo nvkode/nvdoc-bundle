@@ -5,6 +5,7 @@ read:
   sections:
     methods: Methods
     properties: Properties
+    api: API
   table:
     titles:
       name: Name

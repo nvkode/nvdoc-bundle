@@ -2,17 +2,15 @@
 
 {% set titles = [
     'read.table.titles.name'|trans({}, 'nvdoc'),
-    'read.table.titles.visibility'|trans({}, 'nvdoc'),
-    'read.table.titles.parameters'|trans({}, 'nvdoc'),
-    'read.table.titles.return'|trans({}, 'nvdoc')
+    'read.table.titles.route'|trans({}, 'nvdoc'),
 ] %}
-{% set table_macro = '@Nvdoc/_macros/_tables/_namespace.html.twig' %}
+{% set table_macro = '@Nvdoc/_macros/_tables/_api.html.twig' %}
 {% set arguments = namespace_doc %}
 {% set current_namespace = current_namespace %}
 
 <div class="px-4 mx-auto sm:px-6 py-6">
     <h2 class="text-comet font-semibold text-xl mb-2">
-        {{ 'read.sections.methods'|trans({}, 'nvdoc') }}
+        {{ 'read.sections.api'|trans({}, 'nvdoc') }}
     </h2>
     {% block table %}
         {# twigcs use-var titles #}
