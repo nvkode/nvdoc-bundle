@@ -113,3 +113,8 @@ Resources
 
 * [Report issues](https://github.com/nvkode/nvdoc-bundle/issues) and
   [send Pull Requests](https://github.com/nvkode/nvdoc-bundle/pulls)
+
+Security
+---------
+
+[SECURITY.md](https://github.com/nvkode/nvdoc-bundle/blob/development/SECURITY.md)
