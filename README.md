@@ -6,7 +6,7 @@ NvdocBundle provides automatic documentation generation for Symfony project.
 Installation
 ---------
 
-NvdocBundle requires PHP 8.0 or higher and Symfony 6.0 or higher.
+NvdocBundle requires PHP 8.1 or higher and Symfony 5.0 or higher.
 Run the following command to install it in your application:
 
 `$ composer require nvkode/nvdoc-bundle`
@@ -16,6 +16,20 @@ Install assets
 `$ symfony console assets:install`
 
 After add routes in config/routes.yaml
+
+**Symfony 5:**
+
+```
+controllers:
+  resource: ../src/Controller/
+  type: annotation
+
+nvdoc:
+  resource: '@NvdocBundle/Controller/'
+  prefix: /
+```
+
+**Symfony 6:**
 
 ```
 nvdoc:
