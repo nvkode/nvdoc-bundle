@@ -81,11 +81,19 @@
                                                     </td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td></td>
                                                 </tr>
                                             {% endif %}
 
                                             </tbody>
                                         </table>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        {% if method.docComment is not null and '@NVAPI' in method.docComment %}
+                                            {{ 'read.values.yes'|trans({}, 'nvdoc') }}
+                                        {% else %}
+                                            {{ 'read.values.no'|trans({}, 'nvdoc') }}
+                                        {% endif %}
                                     </td>
                                 </tr>
 
@@ -104,6 +112,7 @@
                 </td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
         {% endif %}
     {% else %}
@@ -111,6 +120,7 @@
             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                 {{ 'class.api.empty'|trans({}, 'nvdoc_namespace') }}
             </td>
+            <td></td>
             <td></td>
             <td></td>
         </tr>

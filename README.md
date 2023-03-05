@@ -53,9 +53,38 @@ public function index(): Response
 }
 ```
 
-| Name  | Route | Parameters                                                                        |
-|-------|-------|-----------------------------------------------------------------------------------|
-| index | /     | name string    REQUIRED<br/>name type      undefined<br/>name undefined undefined |
+Output:
+
+| Name  | Route | Parameters                                                                        | API |
+|-------|-------|-----------------------------------------------------------------------------------|-----|
+| index | /     | name string    REQUIRED<br/>name type      undefined<br/>name undefined undefined | No  |
+
+**NVAPI**
+
+Set up route as API route.
+
+Example:
+
+```php
+
+/**
+ * @NVParam('name', 'type', 'required')
+ * @NVAPI
+ */
+#[Route(
+    path: '/'
+)]
+public function index(): Response
+{
+    return $this->render('index.html.twig');
+}
+```
+
+Output:
+
+| Name  | Route | Parameters           | API |
+|-------|-------|----------------------|-----|
+| index | /     | name string REQUIRED | Yes |
 
 Dependencies
 ---------

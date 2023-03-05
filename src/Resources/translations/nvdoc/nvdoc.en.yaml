@@ -14,3 +14,7 @@ read:
       return: Return
       type: Type
       route: Route
+      api: API
+  values:
+    yes: Yes
+    no: No
