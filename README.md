@@ -11,6 +11,10 @@ Run the following command to install it in your application:
 
 `$ composer require nvkode/nvdoc-bundle`
 
+Install assets
+
+`$ symfony console assets:install`
+
 After add routes in config/routes.yaml
 
 ```
