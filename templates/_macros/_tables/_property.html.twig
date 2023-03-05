@@ -6,25 +6,12 @@
             {% if property.declaringClass is defined %}
                 {% if property.declaringClass.name is same as(current_namespace) %}
                     <tr>
-                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                            {{ property.name }}
-                        </td>
-                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                            {% if property.isPrivate %}
-                                {% set property_color = 'text-red-500' %}
-                                {% set property_text = 'class.methods.private'|trans({}, 'nvdoc_namespace') %}
-                            {% elseif property.isProtected %}
-                                {% set property_color = 'text-gray-300' %}
-                                {% set property_text = 'class.methods.protected'|trans({}, 'nvdoc_namespace') %}
-                            {% else %}
-                                {% set property_color = 'text-emerald-500' %}
-                                {% set property_text = 'class.methods.public'|trans({}, 'nvdoc_namespace') %}
-                            {% endif %}
-
-                            <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ property_color }} gap-x-2 dark:bg-gray-800">
-                                {{ property_text }}
-                            </div>
-                        </td>
+                        {% include '@Nvdoc/_components/_table/_fields/_name.html.twig' with {
+                            entity: property
+                        } %}
+                        {% include '@Nvdoc/_components/_table/_fields/_status.html.twig' with {
+                            entity: property
+                        } %}
                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                             {% if property.type %}
                                 {% if data[property.type.name] is defined %}

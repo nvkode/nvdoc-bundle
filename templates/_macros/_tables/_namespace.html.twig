@@ -12,25 +12,12 @@
             {% if method.declaringClass is defined %}
                 {% if method.declaringClass.name is same as(current_namespace) %}
                     <tr>
-                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                            {{ method.name }}
-                        </td>
-                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                            {% if method.isPrivate %}
-                                {% set method_color = 'text-red-500' %}
-                                {% set method_text = 'class.methods.private'|trans({}, 'nvdoc_namespace') %}
-                            {% elseif method.isProtected %}
-                                {% set method_color = 'text-gray-300' %}
-                                {% set method_text = 'class.methods.protected'|trans({}, 'nvdoc_namespace') %}
-                            {% else %}
-                                {% set method_color = 'text-emerald-500' %}
-                                {% set method_text = 'class.methods.public'|trans({}, 'nvdoc_namespace') %}
-                            {% endif %}
-
-                            <div class="inline px-3 py-1 text-sm font-normal rounded-full {{ method_color }} gap-x-2 dark:bg-gray-800">
-                                {{ method_text }}
-                            </div>
-                        </td>
+                        {% include '@Nvdoc/_components/_table/_fields/_name.html.twig' with {
+                            entity: method
+                        } %}
+                        {% include '@Nvdoc/_components/_table/_fields/_status.html.twig' with {
+                            entity: method
+                        } %}
                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                             {% if method.parameters|length > 0 %}
                                 <table>
@@ -78,8 +65,8 @@
                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                             {% if default_methods[method.name] is defined %}
                                 <span>
-                                {{ default_methods[method.name] }}
-                            </span>
+                                    {{ default_methods[method.name] }}
+                                </span>
                             {% else %}
                                 {% if method.returnType %}
                                     {% if data[method.returnType.name] is defined %}
