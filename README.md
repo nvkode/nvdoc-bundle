@@ -3,8 +3,8 @@ NvdocBundle
 
 NvdocBundle provides automatic documentation generation for Symfony project.
 
-![First example](docs/nvdoc_01_v2.png)
-![Second example](docs/nvdoc_02_v2.png)
+![First example](docs/nvdoc_01_v3.png)
+![Second example](docs/nvdoc_02_v3.png)
 
 Installation
 ---------
