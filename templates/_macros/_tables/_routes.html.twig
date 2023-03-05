@@ -5,6 +5,18 @@
         {% for method in namespace_doc.methods %}
             {% if method.declaringClass is defined %}
                 {% if method.declaringClass.name is same as(current_namespace) %}
+                    {% set class_route = '' %}
+
+                    {% for class_attribute in method.declaringClass.attributes %}
+                        {% if class_attribute.name is same as('Symfony\\Component\\Routing\\Annotation\\Route') %}
+                            {% if class_attribute.arguments['path'] is defined %}
+                                {% set class_route = class_attribute.arguments['path'] %}
+                            {% else %}
+                                {% set class_route = class_attribute.arguments[0] %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
                     {% for attribute in method.attributes %}
                         {% if attribute.name is same as('Symfony\\Component\\Routing\\Annotation\\Route') %}
                             {% if attribute.arguments is not empty %}
@@ -20,7 +32,11 @@
                                     } %}
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <span class="px-3 py-1 bg-slate-800 rounded">
-                                            {{ path }}
+                                            {% if path is same as('/') %}
+                                                {{ class_route }}
+                                            {% else %}
+                                                {{ class_route ~ path }}
+                                            {% endif %}
                                         </span>
                                     </td>
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
