@@ -5,7 +5,7 @@
         {% if value is iterable %}
 
             <div{% if not first_level %} class="border-l"{% endif %}>
-                <p class="text-comet text-sm font-semibold{% if not first_level %} ml-6{% endif %} lg:text-[15px] mb-2">
+                <p class="text-comet text-sm font-semibold{% if not first_level %} ml-6 pt-1{% endif %} lg:text-[15px] mb-2">
                     {{ key }}
                 </p>
 
@@ -18,7 +18,7 @@
             {% include '@Nvdoc/_components/_link.html.twig' with {
                 name: key,
                 path: path('nvdoc_read', {namespace: value}),
-                class: 'pl-6 text-base font-light border-l',
+                class: 'pl-6 py-1 text-base font-light border-l',
                 is_active: app.request.get('namespace') is same as(value),
                 is_block: true
             } %}
