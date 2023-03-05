@@ -8,14 +8,18 @@
                     {% set class_route = '' %}
 
                     {% for class_attribute in method.declaringClass.attributes %}
-                        {% if class_attribute.name is same as('Symfony\\Component\\Routing\\Annotation\\Route') %}
-                            {% if class_attribute.arguments['path'] is defined %}
-                                {% set class_route = class_attribute.arguments['path'] %}
-                            {% else %}
-                                {% set class_route = class_attribute.arguments[0] %}
+                        {% if class_route is same as('') %}
+                            {% if class_attribute.name is same as('Symfony\\Component\\Routing\\Annotation\\Route') %}
+                                {% if class_attribute.arguments['path'] is defined %}
+                                    {% set class_route = class_attribute.arguments['path'] %}
+                                {% else %}
+                                    {% set class_route = class_attribute.arguments[0] %}
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
+
+                    {% set exist_paths = [] %}
 
                     {% for attribute in method.attributes %}
                         {% if attribute.name is same as('Symfony\\Component\\Routing\\Annotation\\Route') %}
@@ -26,11 +30,12 @@
                                     {% set path = attribute.arguments[0] %}
                                 {% endif %}
 
-                                <tr>
-                                    {% include '@Nvdoc/_components/_table/_fields/_name.html.twig' with {
-                                        entity: method
-                                    } %}
-                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                {% if path not in exist_paths %}
+                                    <tr>
+                                        {% include '@Nvdoc/_components/_table/_fields/_name.html.twig' with {
+                                            entity: method
+                                        } %}
+                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <span class="px-3 py-1 bg-slate-800 rounded">
                                             {% if path is same as('/') %}
                                                 {{ class_route }}
@@ -38,82 +43,84 @@
                                                 {{ class_route ~ path }}
                                             {% endif %}
                                         </span>
-                                    </td>
-                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        <table>
-                                            <tbody>
-                                            {% set parameters_count = 0 %}
+                                        </td>
+                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                            <table>
+                                                <tbody>
+                                                {% set parameters_count = 0 %}
 
-                                            {% if method.docComment is not null and '@NVParam' in method.docComment %}
-                                                {% set doc = method.docComment|split('\n') %}
+                                                {% if method.docComment is not null and '@NVParam' in method.docComment %}
+                                                    {% set doc = method.docComment|split('\n') %}
 
-                                                {% for row in doc %}
-                                                    {% if '@NVParam' in row %}
-                                                        {% set annotation = row|split('*') %}
+                                                    {% for row in doc %}
+                                                        {% if '@NVParam' in row %}
+                                                            {% set annotation = row|split('*') %}
 
-                                                        {% if annotation|length > 1 %}
-                                                            {% set annotation = annotation|last|trim %}
+                                                            {% if annotation|length > 1 %}
+                                                                {% set annotation = annotation|last|trim %}
 
-                                                            {% set data = annotation|split('(')[1]|trim(')')|replace({'\'': ''})|split(', ') %}
+                                                                {% set data = annotation|split('(')[1]|trim(')')|replace({'\'': ''})|split(', ') %}
 
-                                                            {% if data[0] is defined %}
-                                                                <tr>
-                                                                    <td>
-                                                                        {{ data[0] }}
-                                                                    </td>
+                                                                {% if data[0] is defined %}
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ data[0] }}
+                                                                        </td>
 
-                                                                    <td class="pl-2">
-                                                                        {% if data[1] is defined %}
-                                                                            {{ data[1] }}
-                                                                        {% else %}
-                                                                            <span class="text-red-500 lowercase">
+                                                                        <td class="pl-2">
+                                                                            {% if data[1] is defined %}
+                                                                                {{ data[1] }}
+                                                                            {% else %}
+                                                                                <span class="text-red-500 lowercase">
                                                                             {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
                                                                         </span>
-                                                                        {% endif %}
-                                                                    </td>
+                                                                            {% endif %}
+                                                                        </td>
 
-                                                                    <td class="pl-2">
-                                                                        {% if data[2] is defined %}
-                                                                            <span class="uppercase">{{ data[2] }}</span>
-                                                                        {% else %}
-                                                                            <span class="text-red-500 lowercase">
+                                                                        <td class="pl-2">
+                                                                            {% if data[2] is defined %}
+                                                                                <span class="uppercase">{{ data[2] }}</span>
+                                                                            {% else %}
+                                                                                <span class="text-red-500 lowercase">
                                                                         {{ 'class.types.undefined'|trans({}, 'nvdoc_namespace') }}
                                                                     </span>
-                                                                        {% endif %}
-                                                                    </td>
+                                                                            {% endif %}
+                                                                        </td>
 
-                                                                    {% set parameters_count = parameters_count + 1 %}
-                                                                </tr>
+                                                                        {% set parameters_count = parameters_count + 1 %}
+                                                                    </tr>
+                                                                {% endif %}
                                                             {% endif %}
                                                         {% endif %}
-                                                    {% endif %}
-                                                {% endfor %}
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                                {% if parameters_count is same as(0) %}
+                                                    <tr>
+                                                        <td>
+                                                            {{ 'class.parameters.empty'|trans({}, 'nvdoc_namespace') }}
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                {% endif %}
+
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                            {% if method.docComment is not null and '@NVAPI' in method.docComment %}
+                                                {{ 'read.values.yes'|trans({}, 'nvdoc') }}
+                                            {% else %}
+                                                {{ 'read.values.no'|trans({}, 'nvdoc') }}
                                             {% endif %}
+                                        </td>
+                                    </tr>
 
-                                            {% if parameters_count is same as(0) %}
-                                                <tr>
-                                                    <td>
-                                                        {{ 'class.parameters.empty'|trans({}, 'nvdoc_namespace') }}
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            {% endif %}
-
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        {% if method.docComment is not null and '@NVAPI' in method.docComment %}
-                                            {{ 'read.values.yes'|trans({}, 'nvdoc') }}
-                                        {% else %}
-                                            {{ 'read.values.no'|trans({}, 'nvdoc') }}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-
-                                {% set method_count = method_count + 1 %}
+                                    {% set exist_paths = exist_paths|merge([path]) %}
+                                    {% set method_count = method_count + 1 %}
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
