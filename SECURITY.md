@@ -10,3 +10,4 @@
 ## Reporting a Vulnerability
 
 If you found vulnerability, please report it to [nvkod](mailto:liswelus@gmail.com?subject=[GitHub]%20Vulnerability%20NvdocBundle)
+or create [security advisory](https://github.com/nvkode/nvdoc-bundle/security/advisories/new)
