@@ -59,7 +59,7 @@
                                                 {% if annotation|length > 1 %}
                                                     {% set annotation = annotation|last|trim %}
 
-                                                    {% set data = annotation|split('(')[1]|trim(')')|replace({'\'': ''})|split(', ') %}
+                                                    {% set data = annotation|split('(')[1]|trim(')')|replace({'\'': '', '\"': ''})|split(', ') %}
 
                                                     {% if data[0] is defined %}
                                                         <tr>
